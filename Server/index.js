@@ -1,7 +1,12 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 require('dotenv').config();
 const port = process.env.PORT || 3000;
+
+//middleware
+app.use(cors());
+app.use(express.json())
 
 //mongodb connection
 
@@ -31,6 +36,13 @@ async function run() {
     const enrolledCollection = database.collection("Enrolled");
     const appliedCollection = database.collection("Applied");
 
+    //classes routes here
+    app.post('/new-class', (req,res) => {
+        console.log('response -> ', req.body)
+        const newClass = req.body;
+        console.log('new class -> ', newClass)
+        // res.status(200).send('post route hitted')
+    })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
@@ -41,6 +53,7 @@ async function run() {
   }
 }
 run().catch(console.dir);
+
 
 
 app.get('', (req,res) => {
