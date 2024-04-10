@@ -37,11 +37,39 @@ async function run() {
     const appliedCollection = database.collection("Applied");
 
     //classes routes here
-    app.post('/new-class', (req,res) => {
-        console.log('response -> ', req.body)
+    app.post('/new-class', async(req,res) => {
         const newClass = req.body;
-        console.log('new class -> ', newClass)
-        // res.status(200).send('post route hitted')
+        // newClass.availableSeats = parseInt(newClass.availableSeats);
+        const result = await classesCollection.insertOne(newClass);
+        res.send(result)
+    })
+
+    app.get('/classes', async(req, res) => {
+      const query = {status: 'approved'};
+      const result = await classesCollection.find().toArray()
+      console.log(result)
+      res.send(result)
+    })
+
+    //get classes by instructor email address
+    app.get('/classes/:email', async(req,res) => {
+      const email = req.params.email;
+      const query = {instructorEmail: email};
+      const result = await classesCollection.find(query).toArray();
+      res.send(result)
+    })
+
+    //manage classes
+    app.get('/classes-manage', async(req, res) => {
+      const result = await classesCollection.find().toArray();
+      res.send(result);
+    })
+
+    // update classes
+    app.put('/change-status/:id', async(req, res) => {
+      const id = req.params.id;
+      const status = req.body.status;
+      const reason = req.body.reason;
     })
 
     // Send a ping to confirm a successful connection
@@ -49,7 +77,7 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
