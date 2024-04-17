@@ -50,7 +50,7 @@ async function run() {
 
     // create a database and collections
     const database = client.db('yogo-master');
-    const userCollection = database.collection("Users");
+    const userCollection = database.collection("users");
     const classesCollection = database.collection("Classes");
     const cartCollection = database.collection("Cart");
     const paymentsCollection = database.collection("Payments");
@@ -351,44 +351,44 @@ async function run() {
       res.send(result);
     })
 
-    app.get("/popular-instructors", async(req, res) => {
+    app.get('/popular-instructors', async (req, res) => {
       const pipeline = [
-        {
-          $group: {
-            _id: "$instructorEmail",
-            totalEnrolled: { $sum: "$totalEnrolled"}
+          {
+              $group: {
+                  _id: "$instructorEmail",
+                  totalEnrolled: { $sum: "$totalEnrolled" },
+              }
+          },
+          {
+              $lookup: {
+                  from: "users",
+                  localField: "_id",
+                  foreignField: "email",
+                  as: "instructor"
+              }
+          },
+          {
+              $project: {
+                  _id: 0,
+                  instructor: {
+                      $arrayElemAt: ["$instructor", 0]
+                  },
+                  totalEnrolled: 1
+              }
+          },
+          {
+              $sort: {
+                  totalEnrolled: -1
+              }
+          },
+          {
+              $limit: 6
           }
-        },
-        {
-          $lookup: {
-            from: "users",
-            localField: "_id",
-            foreignField: "email",
-            as: "instructor"
-          }
-        },
-        {
-          $project: {
-            _id: 0,
-            instructor: {
-              $arrayElemAt: ["$instructor", 0]
-            },
-            totalEnrolled: 1
-          }
-        },
-        {
-          $sort: {
-            totalEnrolled: -1
-          }
-        },
-        {
-          limit: 6
-        }
-      ];
-
+      ]
       const result = await classesCollection.aggregate(pipeline).toArray();
-      res.send(result)
-    })
+      res.send(result);
+
+  })
 
     //admin stats
     app.get('/admin-stats', verifyJWT, verifyAdmin, async (req, res) => {
