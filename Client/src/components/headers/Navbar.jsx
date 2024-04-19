@@ -5,7 +5,8 @@ import { Switch } from '@mui/material';
 import {motion} from 'framer-motion';
 
 import photoURL from '../../assets//home/girl.jpg'
-import { FaBars } from 'react-icons/fa'
+import { FaBars } from 'react-icons/fa';
+
 
 const navLinks = [
     {name: 'Home', route: "/"},

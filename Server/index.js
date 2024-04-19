@@ -360,6 +360,11 @@ async function run() {
               }
           },
           {
+            $match: {
+              "instructor.role":"instructor"
+            }
+          },
+          {
               $lookup: {
                   from: "users",
                   localField: "_id",
@@ -389,6 +394,50 @@ async function run() {
       res.send(result);
 
   })
+
+  app.get('/popular-instructors-sample', async (req, res) => {
+    const pipeline = [
+        {
+            $group: {
+                _id: "$instructorEmail",
+                totalEnrolled: { $sum: "$totalEnrolled" },
+            }
+        },
+        {
+          $match: {
+            "instructor.role":"instructor"
+          }
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "_id",
+                foreignField: "email",
+                as: "instructor"
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                instructor: {
+                    $arrayElemAt: ["$instructor", 0]
+                },
+                totalEnrolled: 1
+            }
+        },
+        {
+            $sort: {
+                totalEnrolled: -1
+            }
+        },
+        {
+            $limit: 6
+        }
+    ]
+    const result = await classesCollection.aggregate(pipeline).toArray();
+    res.send(result);
+
+})
 
     //admin stats
     app.get('/admin-stats', verifyJWT, verifyAdmin, async (req, res) => {

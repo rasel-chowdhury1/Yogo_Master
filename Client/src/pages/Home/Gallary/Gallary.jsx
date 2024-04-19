@@ -1,6 +1,9 @@
 import React from 'react';
 import image1 from "../../../assets/gallary/image1.png";
 import image2 from "../../../assets/gallary/image2.png";
+import image3 from "../../../assets/gallary/yogo1.jpg";
+import image4 from "../../../assets/gallary/yogo2.jpg";
+import image5 from "../../../assets/gallary/yogo3.jpg";
 
 const Gallary = () => {
     return (
@@ -19,13 +22,13 @@ const Gallary = () => {
                         <img src={image2} alt="" className='md:h-[350px]  rounded-sm' />
                     </div>
                     <div>
-                        <img src={image2} alt="" className='md:h-[350px]  rounded-sm' />
+                        <img src={image3} alt="" className='md:h-[350px]  rounded-sm' />
                     </div>
                     <div>
-                        <img src={image2} alt="" className='md:h-[350px]  rounded-sm' />
+                        <img src={image4} alt="" className='md:h-[350px]  rounded-sm' />
                     </div>
                     <div>
-                        <img src={image2} alt="" className='md:h-[350px]  rounded-sm' />
+                        <img src={image5} alt="" className='md:h-[350px]  rounded-sm' />
                     </div>
                 </div>
             </div>
