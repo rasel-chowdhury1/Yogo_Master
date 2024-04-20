@@ -38,7 +38,7 @@ const PopularTeacher = () => {
                                 <img className="rounded-full border-4 border-gray-300 h-24 w-24 mx-auto" src={instructor?.instructor?.photoUrl || `${img}`} alt="" />
 
                                 <div>
-                                    <p>{instructor?.instructor?.name}</p>
+                                    <p className='font-medium texl-lg dark:text-white'>{instructor?.instructor?.name}</p>
                                 </div>
                             </div>
                         </div>
