@@ -37,8 +37,10 @@ const PopularTeacher = () => {
                             <div className='flex flex-col gap-6 md:gap-8'>
                                 <img className="rounded-full border-4 border-gray-300 h-24 w-24 mx-auto" src={instructor?.instructor?.photoUrl || `${img}`} alt="" />
 
-                                <div>
+                                <div className='flex flex-col text-center'>
                                     <p className='font-medium texl-lg dark:text-white'>{instructor?.instructor?.name}</p>
+                                    <p className='text-gray-500 whitespace-nowrap'>Instructors</p>
+                                    <p className='text-gray-500 mb-4 whitespace-nowrap'>Total Students: {instructor?.totalEnrolled}</p>
                                 </div>
                             </div>
                         </div>
