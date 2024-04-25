@@ -31,7 +31,7 @@ const Instructors = () => {
 
             {
                 instructors ? <>
-                <div className='grid md:grid-cols-3 w-[90%] gap-4 mx-auto '>
+                <div className='grid mb-28 md:grid-cols-2 lg:grid-cols-3 w-[90%] gap-4 mx-auto mt-20'>
                     {instructors?.slice(0,6).map((instructor, i) => (
                         <div className='flex dark:text-white hover:-translate-y-2 duration-200 cursor-pointer flex-col shadow-md py-8 px-10 md:px-8 rounded-md'>
                             <div className='flex flex-col gap-6 md:gap-8'>
