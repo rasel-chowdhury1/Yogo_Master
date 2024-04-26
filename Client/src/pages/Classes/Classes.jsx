@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
 import { Transition } from '@headlessui/react';
-import Instructors from './../Instructors/Instructors';
+import { AuthContext } from './../../utilities/providers/AuthProvider';
 import { Link } from 'react-router-dom';
 
 
 const Classes = () => {
     const axiosFetch = useAxiosFetch();
     const [classes, setClasses] = useState([]);
-    const [isShowing, setIsShowing] = useState(false)
     const [hoverredCard, setHoveredCard] = useState(null)
-    
+
+    const {user} = useContext(AuthContext)
+    console.log('user -> ',user)
     const handleHover = (index) => {
         setHoveredCard(index)
     }
@@ -20,8 +21,9 @@ const Classes = () => {
        .catch(err => console.log(err))
     },[])
 
-    console.log('classes data -> ',classes)
+
     return (
+
         <div>
             <div className='mt-20 pt-3'>
                 <h1 className='text-4xl font-bold text-center text-secondary'>Classes</h1>
