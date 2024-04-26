@@ -96,7 +96,7 @@ const AuthProvider = ({children}) => {
         return () => unsubscribe()
     },[])
 
-    const contextValue = {user, signUp, login, logout, updateUser, googleLogin, error, loader};
+    const contextValue = {user, signUp, login, logout, updateUser, googleLogin, error, setError, loader, setLoader};
 
     return (
         <AuthContext.Provider value={contextValue}>
